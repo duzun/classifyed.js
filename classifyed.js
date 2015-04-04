@@ -45,9 +45,10 @@
  *   console.log(myObj.constructor.parent().type); // my parent class again
  *
  *
- * @author Dumitru Uzun (DUzun.Me)
+ * @author  Dumitru Uzun (DUzun.Me)
  * @version 1.0.0
  * @license MIT
+ * @repo    https://github.com/duzun/classifyed.js
  */
 ;(function (root, name) {
     (typeof define !== 'function' || !define.amd
