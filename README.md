@@ -7,39 +7,34 @@ with an elegant way of calling parent methods.
 # Usage
 
 ```javascript
-var MyClass = Classifyed.extend(
-    {
-       constructor: function() { ... },
-       doFoo: function () { ... }
+var MyClass = Classifyed.extend({
+    constructor: function() { ... },
+    doFoo: function () { ... }
+},
+{
+    type: 'MyClass',
+    staticFoo: function () {
+        // This is a static method
     }
-  , {
-       type: 'MyClass',
-       staticFoo: function () {
-           // This is a static method
-       }
-    }
-);
+});
 
-var SuperClass = MyClass.extend(
-   {
-       constructor: function(){
-            this.__super__('constructor', arguments);
-            // Continue with the constructor...
-       },
-       doFoo: function () {
-            this.__super__('doFoo', arguments); // call parent method
-            // Do stuff
-       }
+var SuperClass = MyClass.extend({
+    constructor: function(){
+        this.__super__('constructor', arguments); // call parent constructor
+        // Continue with the constructor...
+    },
+    doFoo: function () {
+        this.__super__('doFoo', arguments); // call parent method
+        // Do stuff
     }
-  , {
-       type: 'SuperClass',
-       staticFoo: function () {
-            this.__super__.constructor.staticFoo(); // call parent static method
-            this.parent().staticFoo(); // same as previous
-       }
-
+},
+{
+   type: 'SuperClass',
+   staticFoo: function () {
+        this.__super__.constructor.staticFoo(); // call parent static method
+        this.parent().staticFoo(); // same as previous
    }
-);
+});
 
 var myObj = new SuperClass();
 myObj.doFoo();
