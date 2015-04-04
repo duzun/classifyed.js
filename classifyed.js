@@ -46,7 +46,7 @@
  *
  *
  * @author  Dumitru Uzun (DUzun.Me)
- * @version 1.0.0
+ * @version 1.1.0
  * @license MIT
  * @repo    https://github.com/duzun/classifyed.js
  */
@@ -105,6 +105,12 @@
             ,   child
             ,   _proto
             ;
+
+            // Short for extendClass({constructor: function(){...}}) -> extendClass(function(){...})
+            if ( typeof protoProps == 'function' ) {
+                protoProps = { constructor: protoProps };
+            }
+
             // The constructor function for the new subclass is either defined by you
             // (the "constructor" property in your `extend` definition), or defaulted
             // by us to simply call the parent's constructor.
