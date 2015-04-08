@@ -18,7 +18,7 @@
  *
  *   var SuperClass = MyClass.extend(
  *     {
- *         constructor: function(){
+ *         constructor: function() {
  *              this.__super__('constructor', arguments);
  *              // Continue with the constructor...
  *         },
@@ -46,15 +46,15 @@
  *
  *
  * @author  Dumitru Uzun (DUzun.Me)
- * @version 1.1.0
+ * @version 1.1.1
  * @license MIT
  * @repo    https://github.com/duzun/classifyed.js
  */
 ;(function (root, name) {
     (typeof define !== 'function' || !define.amd
         ? typeof module == 'undefined' || !module.exports
-            ? function (deps, factory) { module.exports = factory(); } // Browser
-            : function (deps, factory) { root[name] = factory(); } // CommonJs
+            ? function (deps, factory) { root[name] = factory(); } // Browser
+            : function (deps, factory) { module.exports = factory(); } // CommonJs
         : define // AMD
     )
     /*define*/(/*name, */[], function factory() {
@@ -105,7 +105,6 @@
             ,   child
             ,   _proto
             ;
-
             // Short for extendClass({constructor: function(){...}}) -> extendClass(function(){...})
             if ( typeof protoProps == 'function' ) {
                 protoProps = { constructor: protoProps };
