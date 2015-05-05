@@ -46,7 +46,7 @@
  *
  *
  * @author  Dumitru Uzun (DUzun.Me)
- * @version 1.1.1
+ * @version 1.2.0
  * @license MIT
  * @repo    https://github.com/duzun/classifyed.js
  */
@@ -141,7 +141,7 @@
 
         // Base class
         function Classifyed() {
-
+            return this; // for chaining
         }
         Classifyed.type = name;
 
