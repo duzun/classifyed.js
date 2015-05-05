@@ -46,7 +46,7 @@
  *
  *
  * @author  Dumitru Uzun (DUzun.Me)
- * @version 1.2.0
+ * @version 1.3.0
  * @license MIT
  * @repo    https://github.com/duzun/classifyed.js
  */
@@ -114,7 +114,14 @@
             // (the "constructor" property in your `extend` definition), or defaulted
             // by us to simply call the parent's constructor.
             if ( !protoProps || !hop.call(protoProps, 'constructor') || !(child = protoProps.constructor) || child === Object ) {
-                child = function(){ return parent.apply(this, arguments) };
+                child = function() { 
+                    if ( this.__super__ ) {
+                        return this.__super__('constructor', arguments);
+                    }
+                    else {
+                        return parent.apply(this, arguments) 
+                    }
+                };
             }
 
             // Add static properties to the constructor function, if supplied.
