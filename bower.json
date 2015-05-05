@@ -1,0 +1,30 @@
+{
+  "name": "classifyed",
+  "main": "classifyed.js",
+  "version": "1.3.0",
+  "description": "A tiny yet powerful lib to create extensible JS Classes, with an elegant way of calling parent methods.",
+  "homepage": "https://github.com/duzun/classifyed.js",
+  "authors": [
+    "Dumitru Uzun <contact@duzun.me>"
+  ],
+  "keywords": [
+    "class",
+    "extend",
+    "parent",
+    "inheritance",
+    "inherit"
+  ],
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
