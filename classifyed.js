@@ -46,10 +46,12 @@
  *
  *
  * @author  Dumitru Uzun (DUzun.Me)
- * @version 1.3.0
+ * @version 1.3.1
  * @license MIT
  * @repo    https://github.com/duzun/classifyed.js
  */
+
+/*globals define, module*/
 ;(function (root, name) {
     (typeof define !== 'function' || !define.amd
         ? typeof module == 'undefined' || !module.exports
@@ -59,7 +61,7 @@
     )
     /*define*/(/*name, */[], function factory() {
         // ---------------------------------------------------------------------------
-        var undefined
+        var undefined //jshint ignore:line
         ,   ObjProto = Object.prototype
         ,   hop = ObjProto.hasOwnProperty
         ,   objCreate = Object.create
@@ -90,13 +92,13 @@
                     if(f.call(s, i, s, o) === false) return i;
                 }
             }
-            return o
+            return o;
         }
 
         function assign(o) {
-            function cpy(i,s) { o[i] = s };
-            each(arguments, function (i,a) { i && each(a, cpy) });
-            return o
+            function cpy(i,s) { o[i] = s; }
+            each(arguments, function (i,a) { i && each(a, cpy); });
+            return o;
         }
 
         // Helper function to correctly set up the prototype chain, for subclasses.
@@ -114,12 +116,12 @@
             // (the "constructor" property in your `extend` definition), or defaulted
             // by us to simply call the parent's constructor.
             if ( !protoProps || !hop.call(protoProps, 'constructor') || !(child = protoProps.constructor) || child === Object ) {
-                child = function() { 
+                child = function() {
                     if ( this.__super__ ) {
                         return this.__super__('constructor', arguments);
                     }
                     else {
-                        return parent.apply(this, arguments) 
+                        return parent.apply(this, arguments);
                     }
                 };
             }
@@ -161,7 +163,7 @@
         Classifyed.parent = function parentConstructor(inst, args) {
             var self = this;
             return (self = self.__super__) && (self = self.constructor);
-        }
+        };
 
         /// Invoke parent[methName](args) on this instance
         ClassProto.__super__ = function (methName, args) {
@@ -169,29 +171,34 @@
             ,   consProp = '[super@'+methName+']:cons'
             ,   cons = consProp in self ? self[consProp] : self.constructor
             ,   proto
+            // If self doesn't have own methName, then self[methName]() which invoked this __super__() call is from some parent class.
+            ,   firstSuper
             ;
             while ( proto = cons.__super__ ) {
                 cons = proto.constructor;
                 if ( hop.call(proto, methName) ) {
-                    var meth = proto[methName]
-                    ,   ndel = consProp in self
-                    ,   ret
-                    ;
-                    if(!meth.apply && !meth.call) {
-                        throw new Error('Invalid method for '+funcName(cons)+'.__super__('+methName+')', meth);
+                    var meth = proto[methName];
+                    if ( firstSuper || self[methName] !== meth ) {
+                        var ndel = consProp in self;
+                        var ret;
+                        if(!meth.apply && !meth.call) {
+                            throw new Error('Invalid method for '+funcName(cons)+'.__super__('+methName+')', meth);
+                        }
+                        self[consProp] = cons;
+                        if(meth.apply) {
+                            ret = meth.apply(self, args||[]);
+                        }
+                        else {
+                            ret = meth.call(self, args&&args[0]);
+                        }
+                        if ( !ndel ) delete self[consProp];
+                        return ret;
                     }
-                    self[consProp] = cons;
-                    if(meth.apply) {
-                        ret = meth.apply(self, args||[]);
-                    }
-                    else {
-                        ret = meth.call(self, args&&args[0]);
-                    }
-                    if ( !ndel ) delete self[consProp];
-                    return ret;
+
+                    firstSuper = true;
                 }
-            };
-        }
+            }
+        };
 
 
         // ---------------------------------------------------------------------------
@@ -219,12 +226,11 @@
             objCreate = (function (Object) {
                 return function (prototype) {
                     Object.prototype = prototype;
-                    var obj = new Object;
+                    var obj = new Object();
                     Object.prototype = null;
                     obj.__proto__ = prototype;
-                    obj.__proto__ = prototype;
                     return obj;
-                }
+                };
             }
             (function (){}));
         }
