@@ -40,9 +40,9 @@ var myObj = new SuperClass();
 myObj.doFoo();
 myObj.__super__('doFoo');
 
-console.log(myObj.constructor.type); // my class
-console.log(myObj.constructor.__super__.constructor.type); // my parent class
-console.log(myObj.constructor.parent().type); // my parent class again
+console.log(myObj.constructor.type); // 'MyClass'
+console.log(myObj.constructor.__super__.constructor.type); // 'SuperClass'
+console.log(myObj.constructor.parent().type); // 'SuperClass' again
 
 ```
 
