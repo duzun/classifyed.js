@@ -32,7 +32,8 @@
   },
   "homepage": "https://github.com/duzun/classifyed.js",
   "scripts": {
-    "verup": "node ./node_modules/verup/verup.js"
+    "verup": "verup",
+    "build": "gccs classifyed.js"
   },
   "verup": {
     "files": [
@@ -42,6 +43,21 @@
     ]
   },
   "devDependencies": {
-    "verup": "^1.x"
+    "gccs": "^1.2",
+    "verup": "^1.6"
+  },
+  "jshintConfig": {
+    "laxbreak": true,
+    "laxcomma": true,
+    "undef": true,
+    "unused": true,
+    "sub": true,
+    "expr": true,
+    "bitwise": false,
+    "eqeqeq": false,
+    "boss": true,
+    "eqnull": true,
+    "scripturl": true,
+    "-W041": false
   }
 }
