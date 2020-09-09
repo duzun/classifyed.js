@@ -46,7 +46,7 @@
  *
  *
  * @author  Dumitru Uzun (DUzun.Me)
- * @version 1.3.1
+ * @version 1.4.0
  * @license MIT
  * @repo    https://github.com/duzun/classifyed.js
  */
@@ -110,6 +110,9 @@
             // Short for extendClass({constructor: function(){...}}) -> extendClass(function(){...})
             if ( typeof protoProps == 'function' ) {
                 protoProps = { constructor: protoProps };
+            }
+            else if(Array.isArray(protoProps)) {
+                protoProps = assign.apply(undefined, [{}].concat(protoProps));
             }
 
             // The constructor function for the new subclass is either defined by you
